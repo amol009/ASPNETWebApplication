@@ -1,0 +1,181 @@
+﻿@model List<ASPNETWebApplication.Context.StaffDetail>
+@using ASPNETWebApplication.Models;
+@{
+    ViewBag.Title = "StaffList";
+    //ViewData["Title"] = "StaffList";
+    Pager pager = new Pager();
+
+    int pageNo = 0;
+    if (ViewBag.Pager != null)
+    {
+        pager = ViewBag.Pager;
+        pageNo = pager.CurrentPage;
+    }
+}
+
+<script src="~/Scripts/bootstrap.min.js"></script>
+<script src="~/Scripts/jquery-ui-1.13.2.min.js"></script>
+<link href="~/Content/PagedList.css" rel="stylesheet" />
+<link href="~/Content/Site.css" rel="stylesheet" />
+<link href="~/Content/bootstrap.css" rel="stylesheet" />
+<link href="~/Content/bootstrap.css.map" rel="stylesheet" />
+<script src="~/Scripts/jquery-3.7.0.min.js"></script>
+<script src="~/Scripts/jquery-3.7.0.js"></script>
+<script src="~/Scripts/jquery-3.7.0.min.js"></script>
+<script src="~/Scripts/jquery-3.7.0.min.map"></script>
+
+
+<h2>Manage Testing Staff</h2>
+
+
+
+<div align="right">
+    @*<button type="button" class="btn btn-primary white" onclick="">
+            <img src="~/plus.png"/>
+        </button>*@
+
+    <button type='button' class="btn btn-primary" onclick='window.location = "@Url.Action("Staff", "staff")";'>
+        <img src="~/plus.png" width="15" height="15" /> Add New Testing Staff
+    </button>
+
+</div>
+
+<div align="right" style="margin: 5px 5px 5px 5px ">
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+        Manage Testing Staff Test
+    </button>
+
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                ...
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="TablePage">
+
+    <div class="tablePage2">
+
+        <table id="StaffTable" class="table">
+            <tr>
+                <th>Sr. no.</th>
+                <th>StaffID</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Phone</th>
+                <th>Country</th>
+                <th>Status</th>
+            </tr>
+
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td></td>
+                    <td>@item.id</td>
+                    <td>@item.FirstName</td>
+                    <td>@item.LastName</td>
+                    <td>@item.Phone</td>
+                    <td>@item.Country</td>
+                    <td>@item.Status</td>
+                    <td>
+                        @*<a href="@Url.Action("Staff",new {item.id, item.FirstName, item.LastName, item.Phone, item.Country, item.Status})"><i class="btn btn-success">Edit</i></a>
+                            <a href="@Url.Action("Delete",new {item.id})"><i class="btn btn-danger">Delete</i></a>*@
+
+
+                        <button style="color:white; border:none; border-radius:60%; width:30px; height:30px">
+                            <img src="~/dots_three.png" width="15" height="15" style="align-content:center" />
+                        </button>
+
+                    </td>
+
+                </tr>
+            }
+
+
+
+        </table>
+
+
+
+    </div>
+</div>
+
+<div class="container">
+    @if (pager.TotalPages > 0)
+    {
+        <ul class="pagination justify-content-end">
+            @for (var pge = pager.StartPage; pge <= pager.EndPage; pge++)
+            {
+                <li class="page-item @(pge == pager.CurrentPage ? "active" : "")">
+                    @*<a class="page-link" asp-page="Staff" asp-action="StaffList" asp-route-pg="@pge"> @pge  </a>*@
+                    <a class="page-link" asp-controller="Staff" asp-action="StaffList" asp-route-pg="@pge"> @pge </a>
+
+
+                </li>
+            }
+        </ul>
+    }
+</div>
+
+@*<div class="container">
+        @for (int i = 1; i <= (int)ViewData["TotalPages"]; i++)
+        {
+            if ((int)ViewData["PageNumber"] == i)
+            {
+                <span>@i</span>
+            }
+            else
+            {
+                <a href="@Url.Action("ListMyItems", new { page = i })">@i</a>
+            }
+        }
+    </div>*@
+
+
+@*<link href="//cdn.datatables.net/1.13.5/css/jquery.dataTables.min.css" rel="stylesheet" />
+    @section scripts{
+        <script src="//cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>
+
+        <script>
+            $(document).ready(function () {
+                $("#StaffTable").DataTable({
+                    "ajax": {
+                        "url": "/Staff/GetData",
+                        "type": "GET",
+                        "datatype": "json"
+                    },
+                    "columns": [
+                        { "data": "id" },
+                        { "data": "FirstName" },
+                        { "data": "LastName" },
+                        { "data": "Phone" },
+                        { "data": "Country" },
+                        { "data": "Status" },
+                        /*{ "data": "ProfilePic" },*/
+
+                    ]
+                })
+            });
+        </script>*@
+
+

@@ -1,0 +1,68 @@
+﻿@model ASPNETWebApplication.Context.StaffDetail
+@{
+    ViewBag.Title = "Staff";
+}
+
+<script src="~/Scripts/bootstrap.min.js"></script>
+<script src="~/Scripts/jquery-ui-1.13.2.min.js"></script>
+<link href="~/Content/PagedList.css" rel="stylesheet" />
+<link href="~/Content/Site.css" rel="stylesheet" />
+<link href="~/Content/bootstrap.css" rel="stylesheet" />
+<script src="~/Scripts/jquery-3.7.0.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate-vsdoc.js"></script>
+<script src="~/Scripts/jquery.validate.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+
+
+<h2>Manage Testing Staff</h2>
+<style>
+    .error {
+        color: red;
+    }
+</style>
+
+
+@using (Html.BeginForm("AddStaff", "Staff", FormMethod.Post))
+{
+    <div class="container">
+        <div class="Form-group">
+            @Html.HiddenFor(x => x.id)
+            <label>First Name</label>
+            @Html.ValidationMessageFor(x => x.FirstName, "*", new { @class = "error" })
+            @Html.TextBoxFor(x => x.FirstName, new { @class = "form-control" })
+        </div>
+
+        <div class="Form-group">
+            <label>Last Name</label>
+            @Html.ValidationMessageFor(x => x.LastName, "*", new { @class = "error" })
+            @Html.TextBoxFor(x => x.LastName, new { @class = "form-control" })
+        </div>
+
+        <div class="Form-group">
+            <label>Phone</label>
+            @Html.TextBoxFor(x => x.Phone, new { @class = "form-control", @maxlength = 10 })
+        </div>
+
+        <div class="Form-group">
+            <label>ProfilePic</label>
+            @Html.TextBoxFor(x => x.ProfilePic, new { @class = "form-control" })
+        </div>
+
+        <div class="Form-group">
+            <label>Country</label>
+            @Html.TextBoxFor(x => x.Country, new { @class = "form-control", @Value = "India" })
+        </div>
+
+        <div class="Form-group">
+            <label>Status</label>
+            @Html.TextBoxFor(x => x.Status, new { @class = "form-control", @Value = "Active" })
+        </div>
+
+        <div class="from-group">
+            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="reset" class="btn btn-danger">Cancel</button>
+        </div>
+    </div>
+}
+
